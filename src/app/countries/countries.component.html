@@ -1,0 +1,53 @@
+<div class=country-wrapper #target>
+
+<div class="form-wrapper">
+    <form class="form-style" [formGroup]="countryForm" (ngSubmit)="saveCountryOnSubmit()">
+        <div *ngIf="selectedCountry">
+        <label for="country_id">country_id: </label>
+        <div class="country_id" >
+        <input formControlName="country_id" id="country_id" type="number" [readonly]="selectedCountry">
+    </div>
+    </div>
+    <label for="country">country: </label>
+    <div class="country">
+        <input formControlName="country" id="country" type="text">
+    </div>
+    <div *ngIf="selectedCountry">
+    <label for="last_update">last_update: </label>
+    <div class="last_update">
+        <input formControlName="last_update" id="last_update" type="date">
+    </div>
+</div>
+    <br>
+    <div class="buttons-wrapper">
+    <button class="btn" type="submit">{{ selectedCountry === null ? 'Save' : 'Update' }}</button>
+    <button class="btn" type="reset"(click)="resetForm()">Reset</button>
+    <button class="btn" (click)="deleteOnClick()">Delete</button>
+</div>
+    </form>
+</div>
+
+
+<br>
+
+<div class="container table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>country id</th>
+                <th>country name</th>
+                <th>last update</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countries" (click)="onSelect(country)" (click)="scroll(target)">
+                <td class="c-id">{{country.country_id}}</td>
+                <td class="c">{{country.country}}</td>
+                <td class="c-last-update">{{ country.last_update | date:'medium'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+

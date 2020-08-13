@@ -1,0 +1,66 @@
+<div class="city-wrapper" #target>
+
+    <div class="form-wrapper">
+        <form class="form-style" [formGroup]="cityForm" (ngSubmit)="saveCityOnSubmit">
+            <div>
+                <label for="city_id">city_id: </label>
+             <div class="city_id">
+                <input formControlName="city_id" id="city_id" type="number">
+        </div>
+    </div>
+        <label for="city">city: </label>
+        <div class="country">
+            <input formControlName="city" id="city" type="text">
+        </div>
+        <div>
+        <select formControlName="country_id">
+            <option value="">Choose your country</option>
+            <option *ngFor="let country of countries" [ngValue]="country" (change)="changeCountry($event)">
+                {{country.country}}
+            </option>
+         </select>
+        </div>
+        <div>
+        <label for="last_update">last_update: </label>
+        <div class="last_update">
+            <input formControlName="last_update" id="last_update" type="date">
+        </div>
+    </div>
+    <br>
+    <div class="buttons-wrapper">
+    <button class="btn" type="submit"></button>
+    <button class="btn" type="reset">Reset</button>
+    <button class="btn">Delete</button>
+</div>
+        </form>
+
+        <!-- <select multiple formControlName="cityName">
+            <option value="">Choose your city</option>
+            <option *ngFor="let country of countries" [ngValue]="country" (change)="changeCity($event)">{{city}}
+            </option>
+         </select> -->
+    </div>
+
+    <br>
+
+    <div class="container table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>city id</th>
+                    <th>city name</th>
+                    <th>country name</th>
+                    <th>last update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let city of cities" (click)="onSelect(city)" (click)="scroll(target)">
+                    <td class="city-id">{{city.city_id}}</td>
+                    <td class="city">{{city.city}}</td>
+                    <td class="country-of-city">{{city.country_id.country}}</td>
+                    <td class="city-last-update">{{city.last_update | date:'medium'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

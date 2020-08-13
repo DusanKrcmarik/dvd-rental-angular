@@ -1,0 +1,17 @@
+.city-wrapper {
+    display: flex
+}
+
+.form-wrapper {
+    display: flex;
+    order: 2;
+    width: 50%;
+    flex:1
+}
+// .form-wrapper form {
+// }
+.table-wrapper {
+    order: 1;
+    width: 50%;
+    flex: 2
+}
