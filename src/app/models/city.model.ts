@@ -5,5 +5,5 @@ export class City {
     city: string;
     country_id?: number;
     last_update?: any;
-    country: Country;
+    country?: Country;
 }

@@ -33,12 +33,6 @@ export class CountryService {
    return this.http.delete<Country>(`${this.individualCountryDataUrl}${id}`)
  }
 
-//  deleteCountry(selectedCountry:Country) {
-//    this.http.delete<Country>(this.countryDataUrl, selectedCountry).subscribe(
-//      res => {console.log}
-//    )
-//  }
-
 }
 
 
