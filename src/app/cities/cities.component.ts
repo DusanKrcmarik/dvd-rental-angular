@@ -16,9 +16,11 @@ import { FormBuilder } from '@angular/forms';
 })
 export class CitiesComponent implements OnInit {
 
-
-  countries: Country[];
+  selectedCountry:any;
+  newCity: FormBuilder
+  updatedCity: FormBuilder
   selectedCity: City = null;
+  countries: Country[];
   cities: City[];
 
   constructor(private citiesService: CitiesService, private countryService: CountryService, private fb: FormBuilder) { }
@@ -58,9 +60,10 @@ export class CitiesComponent implements OnInit {
     }
 
     updateValue() {
+      console.log(this.selectedCity);
       this.cityForm.patchValue({
         city: this.selectedCity.city,
-        country_id: this.selectedCity.city_id,
+        city_id: this.selectedCity.city_id,
         last_update: this.selectedCity.last_update,
       })
     }
@@ -80,10 +83,29 @@ export class CitiesComponent implements OnInit {
       this.cityForm.reset()
     }
     saveCityOnSubmit() {
-      return
-
+      if (this.selectedCity) {
+        const updatedCity = {
+          "city": this.cityForm.controls['city'].value
+        }
+        this.citiesService.updateCity(this.selectedCity.city_id, updatedCity).subscribe(
+          res => {
+            console.log(res)
+            this.getAllCities()
+          }
+        )
+      } else {
+        const newCity = {
+          "city": this.cityForm.controls['city'].value
+        }
+        this.getAllCities()
+        this.citiesService.postCity(newCity).subscribe(
+          res => {
+            console.log(res);
+            this.getAllCountries();
+          }
+        )
       }
-
+    }
 // country data
 
 getAllCountries() {
@@ -94,19 +116,21 @@ getAllCountries() {
   })
 }
 
-get country_id() {
-  return this.cityForm.get('country_id');
-}
+// get countryId() {
+//   return this.cityForm.get('country_id');
+// }
 
-changeCountry(e) {
-     this.country_id.setValue(e.target.value, {
-      onlySelf: true
-    })
-     console.log(e.target.value)
+updateCountryOfCity(country) {  
+     this.cityForm.patchValue({
+      // country_id: e.target.value
+     })
+     console.log(country)
  }
 
       // scroll to top on country selected
-  scroll(el: HTMLElement) {
-    el.scrollIntoView();
-  }
+      scroll(el: HTMLElement) {
+        el.scrollIntoView();
+      }
+
 }
+

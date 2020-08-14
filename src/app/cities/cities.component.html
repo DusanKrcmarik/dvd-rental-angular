@@ -1,8 +1,8 @@
 <div class="city-wrapper" #target>
 
     <div class="form-wrapper">
-        <form class="form-style" [formGroup]="cityForm" (ngSubmit)="saveCityOnSubmit">
-            <div>
+        <form class="form-style" [formGroup]="cityForm" (ngSubmit)="saveCityOnSubmit()">
+            <div *ngIf="selectedCity">
                 <label for="city_id">city_id: </label>
              <div class="city_id">
                 <input formControlName="city_id" id="city_id" type="number">
@@ -15,7 +15,7 @@
         <div>
         <select formControlName="country_id">
             <option value="">Choose your country</option>
-            <option *ngFor="let country of countries" [ngValue]="country" (change)="changeCountry($event)">
+            <option *ngFor="let country of countries">
                 {{country.country}}
             </option>
          </select>
@@ -28,9 +28,9 @@
     </div>
     <br>
     <div class="buttons-wrapper">
-    <button class="btn" type="submit"></button>
-    <button class="btn" type="reset">Reset</button>
-    <button class="btn">Delete</button>
+    <button class="btn" type="submit">{{ selectedCity === null ? 'Save' : 'Update'}}</button>
+    <button class="btn" type="reset" (click)="resetForm()">Reset</button>
+    <button class="btn" (click)="deleteOnClick">Delete</button>
 </div>
         </form>
 
