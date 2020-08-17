@@ -65,7 +65,7 @@ export class CitiesComponent implements OnInit {
     }
 
     updateValue() {
-  
+
     this.selectedCountry = this.selectedCity.country_id;
       this.cityForm.patchValue({
         city_id: this.selectedCity.city_id,
@@ -94,18 +94,18 @@ export class CitiesComponent implements OnInit {
     }
     saveCityOnSubmit() {
       // console.log(this.cityForm.controls['city'].value);
-      console.log(this.cityForm.controls['country_id']);
+      console.log(this.cityForm.controls['country_id'].value.country_id);
 
       // this.countries.forEach(c => {
       //   if(c.country === this.cityForm.controls['country_id'].value) {
       //     console.log(c.country_id);
       //   }
       // })
-return
+
       if (this.selectedCity) {
         const updatedCity = {
           "city": this.cityForm.controls['city'].value,
-          "country_id": this.cityForm.controls['country_id'].value
+          "country_id": this.cityForm.controls['country_id'].value.country_id
           // "country_id": this.cityForm.controls['']
         }
         console.log(updatedCity);
@@ -140,7 +140,7 @@ getAllCountries() {
   })
 }
 
-// updateCountryOfCity(country) {  
+// updateCountryOfCity(country) {
 //      this.cityForm.patchValue({
 //       // country_id: e.target.value
 //      })

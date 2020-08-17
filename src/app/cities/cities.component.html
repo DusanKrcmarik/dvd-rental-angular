@@ -16,10 +16,10 @@
             <label for="country">country: </label>
             <br>
         <select formControlName="country_id" name="country" [(ngModel)]="selectedCountry" >
-            <option [ngValue]="selectedCountry">
+            <option [value]="selectedCountry">
                 {{selectedCountry}}
             </option>
-            <option id="country" *ngFor="let country of countries" [ngValue]="country.country" > 
+            <option id="country" *ngFor="let country of countries" [ngValue]="country" >
                 {{country.country}}
                 <!-- <span>
                     {{country.country_id}}
