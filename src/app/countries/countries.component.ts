@@ -28,21 +28,21 @@ export class CountriesComponent implements OnInit {
   })
   
   ngOnInit(): void {
-    console.log(this.selectedCountry)
+    // console.log(this.selectedCountry)
     this.getAllCountries()
   }
 
   getAllCountries() {
-    console.log(this.selectedCountry)
+    // console.log(this.selectedCountry)
     this.countryService.getCountryData().subscribe(data => {
-      console.log(data)
+      // console.log(data)
       this.countries = data;
     })
   }
 
   onSelect(country: Country) {
     this.selectedCountry = country;
-    console.log(country)
+    console.log('OnSelect' ,country)
     this.updateValue()
   }
 
@@ -65,7 +65,7 @@ export class CountriesComponent implements OnInit {
   deleteOnClick() {
     this.countryService.deleteCountry(this.selectedCountry.country_id).subscribe(
       res => {
-        console.log(res)
+        console.log('Deleted item ',res)
         this.getAllCountries()
       }
     );
@@ -74,6 +74,7 @@ export class CountriesComponent implements OnInit {
 
 
   saveCountryOnSubmit() {
+
     if (this.selectedCountry) {
       const updatedCountry = {
         "country": this.countryForm.controls['country'].value
