@@ -21,22 +21,14 @@ export class FilmsComponent implements OnInit {
     dataSource = new MatTableDataSource<Film>();
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
+    @ViewChild(MatSort) sort: MatSort;
  /* MAT TABLE CONFIG */
    constructor(private filmsService: FilmsService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void{
     this.getAllFilms()
- 
-    // setTimeout( () =>  this.allFilmData = this.dataSource.data
-    // , 3)
-
-    // setTimeout( () =>  console.log(this.allFilmData)
-    // , 4)
-
-    // this.allFilmData = this.dataSource.data
-    // console.log(this.dataSource.data)
-    // console.log(this.allFilmData)
+    this.allFilmData = this.dataSource.data
+    console.log(this.allFilmData)
   }
 
   ngAfterViewInit() {
@@ -53,8 +45,7 @@ export class FilmsComponent implements OnInit {
       this.dataSource.data = data;
       this.dataSource.sort = this.sort;
       // this.dataSource.paginator = this.paginator
-      console.log(this.dataSource.data)
-     
+      console.table(this.dataSource.data[1])
     })
   }
 

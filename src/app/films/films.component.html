@@ -1,4 +1,4 @@
-<div class="film-data-container">
+<div class="film-data-container" [hidden]="!dataSource">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     
     <ng-container matColumnDef="title">
@@ -25,7 +25,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-<mat-paginator [length]="this.allFilmData?.length"
+<mat-paginator
                [pageSize]="10"
                [pageSizeOptions]="[5, 10, 20, 50]"
 >

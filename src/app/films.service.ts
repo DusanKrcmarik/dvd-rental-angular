@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import { retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class FilmsService {
   languageListData = 'http://192.168.67.245:3000/language';
 
   getAllFilmData() {
-    return this.http.get<any>(this.allFilmData)
+    return this.http.get<any[]>(this.allFilmData).pipe(
+      retry(3),
+    )
   }
 
 }
