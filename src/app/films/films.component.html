@@ -1,0 +1,36 @@
+<div class="film-data-container">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> title </th>
+      <td mat-cell *matCellDef="let films"> {{films.title}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> description </th>
+        <td mat-cell *matCellDef="let films"> {{films.description}} </td>
+      </ng-container>
+
+    <ng-container matColumnDef="release_year">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> release_year </th>
+      <td mat-cell *matCellDef="let films"> {{films.release_year}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="language_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> language </th>
+      <td mat-cell *matCellDef="let films"> {{films.language_id}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+<mat-paginator [length]="this.allFilmData?.length"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 20, 50]"
+>
+</mat-paginator>
+</div>
+
+
+

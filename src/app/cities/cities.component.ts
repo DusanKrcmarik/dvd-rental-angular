@@ -65,7 +65,7 @@ export class CitiesComponent implements OnInit {
     }
 
     updateValue() {
-  
+
     this.selectedCountry = this.selectedCity.country_id;
       this.cityForm.patchValue({
         city_id: this.selectedCity.city_id,
@@ -79,6 +79,7 @@ export class CitiesComponent implements OnInit {
 
     resetForm() {
       this.selectedCity = null;
+      this.selectedCountry = null;
       this.getAllCities()
     }
 
@@ -87,29 +88,30 @@ export class CitiesComponent implements OnInit {
       this.citiesService.deleteCity(this.selectedCity.city_id).subscribe(
         res => {
           console.log(res)
-          this.getAllCities()
+          this.resetForm();
+          // this.getAllCities()
         }
       );
       this.cityForm.reset()
     }
     saveCityOnSubmit() {
       // console.log(this.cityForm.controls['city'].value);
-      console.log(this.cityForm.controls['country_id']);
+      // console.log(this.cityForm.controls['country_id'].value.country_id);
 
       // this.countries.forEach(c => {
       //   if(c.country === this.cityForm.controls['country_id'].value) {
       //     console.log(c.country_id);
       //   }
       // })
-return
+
       if (this.selectedCity) {
         const updatedCity = {
           "city": this.cityForm.controls['city'].value,
-          "country_id": this.cityForm.controls['country_id'].value
+          "country_id": this.cityForm.controls['country_id'].value.country_id,
           // "country_id": this.cityForm.controls['']
         }
         console.log(updatedCity);
-        return
+
         this.citiesService.updateCity(this.selectedCity.city_id, updatedCity).subscribe(
           res => {
             console.log(res)
@@ -117,17 +119,18 @@ return
           }
         )
       } else {
-        return
         const newCity = {
-          "city": this.cityForm.controls['city'].value
+          "city": this.cityForm.controls['city'].value,
+          "country_id": this.cityForm.controls['country_id'].value.country_id,
         }
         this.getAllCities()
         this.citiesService.postCity(newCity).subscribe(
           res => {
             console.log(res);
-            this.getAllCountries();
+            this.getAllCities();
           }
         )
+        this.cityForm.reset()
       }
     }
 // country data
@@ -140,7 +143,7 @@ getAllCountries() {
   })
 }
 
-// updateCountryOfCity(country) {  
+// updateCountryOfCity(country) {
 //      this.cityForm.patchValue({
 //       // country_id: e.target.value
 //      })
@@ -153,4 +156,3 @@ getAllCountries() {
       }
 
 }
-
