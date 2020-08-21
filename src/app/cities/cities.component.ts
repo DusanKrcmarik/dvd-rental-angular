@@ -16,7 +16,8 @@ import { FormBuilder } from '@angular/forms';
 })
 export class CitiesComponent implements OnInit {
 
-  selectedCountry:any;
+  dropdownSelectedCountry:any;
+  selectedCountry:Country;
   newCity: FormBuilder
   updatedCity: FormBuilder
   selectedCity: City = null;
@@ -48,45 +49,68 @@ export class CitiesComponent implements OnInit {
 
     getAllCities() {
       this.citiesService.getCityData().subscribe(data => {
-        console.log(data);
         this.cities = data;
       })
     }
 
     onSelect(city: City) {
       this.selectedCity = city;
-      console.log(city)
+      console.log(city.country_id);
+      this.selectedCountry = city.country_id;
+      this.dropdownSelectedCountry = this.selectedCountry;
+      // console.log(this.dropdownSelectedCountry);
+      // console.log(city)
       this.updateValue()
     }
 
     updateValue() {
-      console.log(this.selectedCity);
+
+    this.selectedCountry = this.selectedCity.country_id;
       this.cityForm.patchValue({
-        city: this.selectedCity.city,
         city_id: this.selectedCity.city_id,
+        city: this.selectedCity.city,
         last_update: this.selectedCity.last_update,
+        country_id: this.selectedCountry.country
       })
+      // console.log(this.selectedCity.country_id.country);
+
     }
 
     resetForm() {
       this.selectedCity = null;
+      this.selectedCountry = null;
       this.getAllCities()
     }
 
-    deleteOnClick() {
+    deleteCityOnClick() {
+      console.log(this.selectedCity.city_id)
       this.citiesService.deleteCity(this.selectedCity.city_id).subscribe(
         res => {
           console.log(res)
-          this.getAllCities()
+          this.resetForm();
+          // this.getAllCities()
         }
       );
       this.cityForm.reset()
     }
     saveCityOnSubmit() {
+      // console.log(this.cityForm.controls['city'].value);
+      // console.log(this.cityForm.controls['country_id'].value.country_id);
+
+      // this.countries.forEach(c => {
+      //   if(c.country === this.cityForm.controls['country_id'].value) {
+      //     console.log(c.country_id);
+      //   }
+      // })
+
       if (this.selectedCity) {
         const updatedCity = {
-          "city": this.cityForm.controls['city'].value
+          "city": this.cityForm.controls['city'].value,
+          "country_id": this.cityForm.controls['country_id'].value.country_id,
+          // "country_id": this.cityForm.controls['']
         }
+        console.log(updatedCity);
+
         this.citiesService.updateCity(this.selectedCity.city_id, updatedCity).subscribe(
           res => {
             console.log(res)
@@ -95,15 +119,17 @@ export class CitiesComponent implements OnInit {
         )
       } else {
         const newCity = {
-          "city": this.cityForm.controls['city'].value
+          "city": this.cityForm.controls['city'].value,
+          "country_id": this.cityForm.controls['country_id'].value.country_id,
         }
         this.getAllCities()
         this.citiesService.postCity(newCity).subscribe(
           res => {
             console.log(res);
-            this.getAllCountries();
+            this.getAllCities();
           }
         )
+        this.cityForm.reset()
       }
     }
 // country data
@@ -111,21 +137,17 @@ export class CitiesComponent implements OnInit {
 getAllCountries() {
   // console.log(this.selectedCountry)
   this.countryService.getCountryData().subscribe(data => {
-    console.log(data)
     this.countries = data;
+    console.log(this.countries);
   })
 }
 
-// get countryId() {
-//   return this.cityForm.get('country_id');
-// }
-
-updateCountryOfCity(country) {  
-     this.cityForm.patchValue({
-      // country_id: e.target.value
-     })
-     console.log(country)
- }
+// updateCountryOfCity(country) {
+//      this.cityForm.patchValue({
+//       // country_id: e.target.value
+//      })
+//      console.log(country)
+//  }
 
       // scroll to top on country selected
       scroll(el: HTMLElement) {
@@ -133,4 +155,3 @@ updateCountryOfCity(country) {
       }
 
 }
-

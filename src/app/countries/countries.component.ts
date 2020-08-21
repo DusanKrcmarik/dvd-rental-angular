@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CountryService } from '../country.service';
 import { Country } from '../models/country.model'
 import { FormGroup, FormControl } from '@angular/forms';
+import * as moment from 'moment'
+
+
+
 
 @Component({
   selector: 'app-countries',
@@ -28,21 +32,24 @@ export class CountriesComponent implements OnInit {
   })
   
   ngOnInit(): void {
-    console.log(this.selectedCountry)
+    // console.log(this.selectedCountry)
     this.getAllCountries()
   }
-
+  
   getAllCountries() {
-    console.log(this.selectedCountry)
+    // console.log(this.selectedCountry)
     this.countryService.getCountryData().subscribe(data => {
-      console.log(data)
+      // console.log(data)
       this.countries = data;
+      console.log(this.countries.map(c=> c.last_update))
+      // console.log(this.countries)
     })
   }
 
   onSelect(country: Country) {
     this.selectedCountry = country;
-    console.log(country)
+    console.log(this.selectedCountry.last_update)
+    console.log('OnSelect' ,country)
     this.updateValue()
   }
 
@@ -52,6 +59,7 @@ export class CountriesComponent implements OnInit {
       country: this.selectedCountry.country,
       country_id: this.selectedCountry.country_id,
       last_update: this.selectedCountry.last_update,
+      // now.format("yyyy-MM-dd")
     })
   }
 
@@ -65,7 +73,7 @@ export class CountriesComponent implements OnInit {
   deleteOnClick() {
     this.countryService.deleteCountry(this.selectedCountry.country_id).subscribe(
       res => {
-        console.log(res)
+        console.log('Deleted item ',res)
         this.getAllCountries()
       }
     );
@@ -74,6 +82,7 @@ export class CountriesComponent implements OnInit {
 
 
   saveCountryOnSubmit() {
+
     if (this.selectedCountry) {
       const updatedCountry = {
         "country": this.countryForm.controls['country'].value

@@ -26,10 +26,11 @@
     border-radius: 5px
 }
 
+
 th {
     color: #181818;
     background-color: #929292; 
-    padding: 20px;
+    padding: 15px;
     border-radius: 5px
 }
 
@@ -91,8 +92,7 @@ tr:hover {
 }
 
 .btn:hover {
-	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
-	background-color:#72b352;
+    background: linear-gradient(to bottom, #85b352 0%, #72b352 50%, #53b380 100%); /* W3C */
 }
 .btn:active {
 	position:relative;

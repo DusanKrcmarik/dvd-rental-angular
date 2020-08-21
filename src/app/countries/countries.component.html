@@ -20,9 +20,9 @@
 </div>
     <br>
     <div class="buttons-wrapper">
-    <button class="btn" type="submit">{{ selectedCountry === null ? 'Save' : 'Update' }}</button>
-    <button class="btn" type="reset"(click)="resetForm()">Reset</button>
-    <button class="btn" (click)="deleteOnClick()">Delete</button>
+    <button mat-flat-button color="primary" type="submit">{{ selectedCountry === null ? 'Save' : 'Update' }}</button>
+    <button mat-flat-button color="accent" type="reset"(click)="resetForm()">Reset</button>
+    <button mat-flat-button color="warn" (click)="deleteOnClick()">Delete</button>
 </div>
     </form>
 </div>

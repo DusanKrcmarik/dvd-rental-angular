@@ -10,7 +10,7 @@ import { Country } from './models/country.model';
 
 export class CountryService {
   // countryDataUrl = 'http://192.168.67.245:3000/country?limit=20&offset=10';
-  countryDataUrl = 'http://192.168.67.245:3000/country';
+  countryDataUrl = 'http://192.168.67.245:3000/country?order=country_id.asc';
   individualCountryDataUrl = 'http://192.168.67.245:3000/country?country_id=eq.';
 
   constructor(private http: HttpClient) { }
