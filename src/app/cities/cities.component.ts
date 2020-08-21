@@ -49,7 +49,6 @@ export class CitiesComponent implements OnInit {
 
     getAllCities() {
       this.citiesService.getCityData().subscribe(data => {
-        console.log(data)
         this.cities = data;
       })
     }
@@ -59,7 +58,7 @@ export class CitiesComponent implements OnInit {
       console.log(city.country_id);
       this.selectedCountry = city.country_id;
       this.dropdownSelectedCountry = this.selectedCountry;
-      console.log(this.dropdownSelectedCountry);
+      // console.log(this.dropdownSelectedCountry);
       // console.log(city)
       this.updateValue()
     }

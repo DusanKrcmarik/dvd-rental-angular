@@ -27,7 +27,7 @@
             </option>
          </select>
         </div>
-        <div>
+        <div *ngIf="selectedCity">
         <label for="last_update">last_update: </label>
         <div class="last_update">
             <input formControlName="last_update" id="last_update" type="date">

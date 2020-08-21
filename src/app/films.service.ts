@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { retry } from 'rxjs/operators';
+import { Language } from './models/language.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,4 +20,9 @@ export class FilmsService {
     )
   }
 
+  getAllLanguagesData() {
+    return this.http.get<Language[]>(this.languageListData).pipe(
+    retry(3),
+    )
+}
 }

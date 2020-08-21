@@ -1,0 +1,11 @@
+<!-- my-dialog-modal.component.html -->
+<h2>Dialog Modal</h2>
+<b>Value From Page</b>:{{fromPage}}
+<div>
+    <mat-form-field>
+        <input matInput [(ngModel)]="fromDialog" placeholder="Enter value to send back">
+    </mat-form-field>
+</div>
+<div>
+    <button mat-raised-button (click)="closeDialog()">Close</button>
+</div>

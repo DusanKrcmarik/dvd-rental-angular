@@ -1,6 +1,25 @@
+  <!-- Select/Edit Menu -->
+<div class="drop-container">
+    <button class="btn1" mat-mini-fab color="primary" (click)="openAddDialog()">
+        <mat-icon>library_add</mat-icon>
+      </button>
+      <button class="btn2" mat-mini-fab color="primary" (click)="openEditDialog()">
+        <mat-icon>edit</mat-icon>
+      </button>
+<mat-form-field class="select-language-drop" appearance="fill">
+  <mat-label>Choose Language</mat-label>
+  <mat-select [(ngModel)]="selectedLanguage" (selectionChange)="onSelectedLanguage($event)">
+  <mat-option *ngFor="let language of allLanguageData" [value]="language">
+        {{language.name}}
+      </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+
+<!-- Table -->
 <div class="film-data-container" [hidden]="!dataSource">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    
+
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> title </th>
       <td mat-cell *matCellDef="let films"> {{films.title}} </td>
