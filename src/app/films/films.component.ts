@@ -23,6 +23,7 @@ export class FilmsComponent implements OnInit {
 
     allLanguageData: Language[];
     selectedLanguage: Language;
+    selectedEntry: Film;
     filteredData: Film[]
     tempListAllFilms: Film[];
 
@@ -30,10 +31,10 @@ export class FilmsComponent implements OnInit {
 
     dialogValue: string;
     sendValue: string;
- 
+    isDisabled: boolean = true;
   // Mat table config //
 
-    displayedColumns = ['title', 'description', 'release_year', 'language_id'];
+    displayedColumns = ['title', 'description', 'release_year', 'language_id', 'delete'];
     dataSource = new MatTableDataSource<Film>();
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -45,31 +46,36 @@ export class FilmsComponent implements OnInit {
 
    // DIALOG
 
-   openAddDialog(): void {
-    const addDialogRef = this.dialog.open(FilmsDetailComponent, {
-      width: '500px',
-      height: '250px',
-      backdropClass: 'custom-dialog-backdrop-class',
-      panelClass: 'custom-dialog-panel-class',
-      // data: { pageValue: this.sendValue }
-    });
+  //  openAddDialog(data: any): void {
+  //    console.log(data);
+  //    console.log(this.sendValue)
+  //   const addDialogRef = this.dialog.open(FilmsDetailComponent, {
+  //     width: '500px',
+  //     height: '300px',
+  //     backdropClass: 'custom-dialog-backdrop-class',
+  //     panelClass: 'custom-dialog-panel-class',
+  //     data: this.selectedEntry
+  //   });
 
-    addDialogRef.afterClosed().subscribe(result => {
-      console.log('The addDialog was closed', result);
-    });
-  }
+  //   addDialogRef.afterClosed().subscribe(result => {
+  //     console.log('The addDialog was closed', result);
+  //   });
+  // }
 
   openEditDialog(): void {
+    console.log(this.selectedEntry)
     const editDialogRef = this.dialog.open(FilmsDetailComponent, {
-      width: '500px',
-      height: '250px',
+      width: '550px',
+      height: '350px',
       backdropClass: 'custom-dialog-backdrop-class',
       panelClass: 'custom-dialog-panel-class',
-      // data: { pageValue: this.sendValue }
+      data: this.selectedEntry
     });
 
     editDialogRef.afterClosed().subscribe(result => {
-      console.log('The editDialog was closed', result);
+      this.isDisabled = true;
+      this.getAllFilms()
+      console.log('Opali se kad ugasis modal', result);
     });
   }
 
@@ -77,6 +83,7 @@ export class FilmsComponent implements OnInit {
   ngOnInit(): void{
     this.getAllFilms()
     this.getAllLanguages()
+    // console.log(this.selectedLanguage)
   }
 
   ngAfterViewInit() {
@@ -86,26 +93,20 @@ export class FilmsComponent implements OnInit {
 
   // template methods
 
+
   onSelectedLanguage(value){
+    if(!value.value) {
+      // console.log(this.allLanguageData)
+      return this.getAllFilms();
+    }
     this.dataSource.data = [... this.tempListAllFilms];
-    let selectedLanguageId = value.value.language_id
-    console.log(selectedLanguageId)
+    let selectedLanguageId = value.value.language_id;
+    // console.log(selectedLanguageId)
+    // console.log('sss' , this.selectedLanguage)
     this.filteredData = [];
-    // this.applyFilter()
     this.filteredData = this.dataSource.data.filter(film => film.language_id === selectedLanguageId)
-  
     this.dataSource.data = [... this.filteredData];
-
-    // console.log(this.filteredData)
   }
-
-
-
-  // applyFilter() {
-    
-  //   console.log(this.dataSource.data)
-  //   this.dataSource.data.filter()
-  // }
 
   // service methods
 
@@ -116,20 +117,23 @@ export class FilmsComponent implements OnInit {
       this.dataSource.data = data;
       this.dataSource.sort = this.sort;
       // this.dataSource.paginator = this.paginator
-      console.log(this.dataSource.data)
+      // console.log(this.dataSource.data)
     })
   }
 
   getAllLanguages() {
     this.filmsService.getAllLanguagesData().subscribe(data => {
       this.allLanguageData = data
-      // console.log(this.allLanguageData)
-      // console.log(this.allLanguageData.map(l=> l.name))
-      // this.allLanguageData = data.name
+      // console.log('all language' , this.allLanguageData)
     })
   }
 
-
-  
+  onSelectedFilm(entry: Film) {
+    this.selectedEntry = entry;
+    console.log(this.selectedEntry)
+  // }
+  if(this.selectedEntry) {
+    this.isDisabled = false;
+  }
+  }  
 }
-

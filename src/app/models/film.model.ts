@@ -5,13 +5,14 @@ export class Film {
     title: string;
     description: string;
     release_year: number;
-    language_id: Language; 
+    language_id: number; 
     rental_duration: number;
     rental_rate: number;
     length: number;
-    replacement_cost: 22.99;
+    replacement_cost: number;
     rating: string;
     last_update: any;
     special_features: [];
     fulltext: string;
+    language: Language; 
 }
