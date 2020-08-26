@@ -28,3 +28,9 @@ table {
   left: 1600px;
   margin-top: 7px
  }
+
+ .trow:hover {
+  background-color: #929292;
+  transition: 0.3s;
+  cursor: pointer
+ }

@@ -32,3 +32,5 @@ export class CitiesService {
     return this.http.delete<City>(`${this.individualCityDataUrl}${id}`)
   }
   }
+
+
