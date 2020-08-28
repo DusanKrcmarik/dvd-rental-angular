@@ -6,7 +6,6 @@ import { FilmsService } from 'src/app/films.service';
 import { Language } from 'src/app/models/language.model';
 
 
-
 @Component({
   selector: 'app-films-detail',
   templateUrl: './films-detail.component.html',
@@ -28,6 +27,7 @@ export class FilmsDetailComponent implements OnInit {
     private filmsService: FilmsService
     ) 
  {   
+
   this.filmDetailsForm = this.fb.group({
     title:['',Validators.required],
     description:['',Validators.required],
@@ -36,20 +36,27 @@ export class FilmsDetailComponent implements OnInit {
   });
  }
 
-  ngOnInit(): void {
-    // console.log('injected data' , this.data)
-    this.getAllLanguages()
-    this.dataDialog = this.data
-    console.log(this.selectedLanguage)
+
+  ngOnInit(): void { 
+    this.getAllLanguages();
+    this.dataDialog = this.data 
+    this.selectedLanguage = this.data.language.name;
+    console.log(this.dataDialog.language.name)
     this.filmDetailsForm.patchValue({
       title: this.dataDialog.title,
       description: this.dataDialog.description,
       release_year: this.dataDialog.release_year,
       language: this.dataDialog.language.name
     });
-
+    console.log('ng on init')
+    setTimeout(() => {
+      const toSelect = this.allLanguageData.find(c => c.language_id == this.dataDialog.language_id);
+      this.filmDetailsForm.get('language').setValue(toSelect);
+    }, 200);
 
   }
+
+
 
   submitFilm(){
     console.log(this.filmDetailsForm.value)
@@ -61,11 +68,11 @@ export class FilmsDetailComponent implements OnInit {
       "language_id": this.filmDetailsForm.controls['language'].value.language_id
     }
     console.log(updatedFilm)
-    // this.filmsService.updateFilmData(this.dataDialog.film_id , updatedFilm).subscribe(
-    //   res => {
-    //     console.log(res)
-    //   }
-    // )
+    this.filmsService.updateFilmData(this.dataDialog.film_id , updatedFilm).subscribe(
+      res => {
+        console.log(res)
+      }
+    )
     this.dialogRef.close(this.filmDetailsForm.value);
   }
 

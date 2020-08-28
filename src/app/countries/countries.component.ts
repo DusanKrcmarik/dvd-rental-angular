@@ -23,7 +23,10 @@ export class CountriesComponent implements OnInit {
   countries: Country[];
   selectedCountry: Country = null;
 
-  constructor(private countryService: CountryService) { }
+  constructor(private countryService: CountryService) {
+    // let date = new Date();
+    // console.log('test date:', moment(date).format('YYYY-MM-DD'));
+   }
 
   countryForm = new FormGroup({
     country_id: new FormControl(),
@@ -38,18 +41,22 @@ export class CountriesComponent implements OnInit {
   
   getAllCountries() {
     // console.log(this.selectedCountry)
-    this.countryService.getCountryData().subscribe(data => {
-      // console.log(data)
+    this.countryService.getCountryData().subscribe(data => { 
       this.countries = data;
-      console.log(this.countries.map(c=> c.last_update))
-      // console.log(this.countries)
+      // if(this.countries){
+      //   console.log('ucitalo se milo')
+      //   let formatedDateEntries = this.countries.map(c =>moment(c.last_update).format('YYYY-MM-DD'))
+      // }
+      
     })
   }
 
-  onSelect(country: Country) {
-    this.selectedCountry = country;
-    console.log(this.selectedCountry.last_update)
-    console.log('OnSelect' ,country)
+  onSelect(country: Country) { 
+    this.selectedCountry = country; 
+    if(this.selectedCountry.last_update) {
+      this.selectedCountry.last_update = moment(this.selectedCountry.last_update).format('YYYY-MM-DD')
+    }
+    console.log('OnSelect' ,country, 'Last_update',this.selectedCountry.last_update)
     this.updateValue()
   }
 
@@ -85,8 +92,11 @@ export class CountriesComponent implements OnInit {
 
     if (this.selectedCountry) {
       const updatedCountry = {
-        "country": this.countryForm.controls['country'].value
+        "country": this.countryForm.controls['country'].value,
+        "last_update": this.countryForm.controls['last_update'].value
       }
+      console.log('datica datica dva' , updatedCountry);
+
       this.countryService.updateCountry(this.selectedCountry.country_id, updatedCountry).subscribe(
         res => {
           console.log(res)

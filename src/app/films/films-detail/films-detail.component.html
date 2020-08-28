@@ -11,29 +11,20 @@
             <input matInput formControlName="release_year">
         </mat-form-field>
 
-        <!-- <mat-form-field class="language-input-field dialog-input-field" appearance="fill">
-            <mat-label>Language</mat-label>
-            <input matInput formControlName="language">
-        </mat-form-field> -->
-
-
-
         <mat-form-field class="language-input-field dialog-input-field" appearance="fill">
             <mat-label>Choose Language</mat-label>
-            <mat-select formControlName="language" id="language" [(ngModel)]="selectedLanguage">
-            <mat-option *ngFor="let language of allLanguageData" [value]="language">
+            <mat-select formControlName="language" id="language" >
+                <mat-option *ngFor="let language of allLanguageData" [value]="language">
                   {{language.name}}
                 </mat-option>
             </mat-select>
           </mat-form-field>
 
-
-
         <mat-form-field class="description-input-field dialog-input-field" appearance="fill">
             <mat-label>Description</mat-label>
             <textarea matInput formControlName="description" style="overflow:hidden" rows="4" cols="50"></textarea>
         </mat-form-field>
-
+       
         <div class="dialogue-btns">
             <button mat-raised-button color="primary" type="submit" class="submit-dialogue">Save</button>
             <button mat-raised-button color="accent" class="close-dialogue" (click)="close()">Close</button>

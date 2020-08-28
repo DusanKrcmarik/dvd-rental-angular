@@ -32,4 +32,13 @@ export class FilmsService {
   updateFilmData(id: number, updatedFilm: any) {
     return this.http.patch<Film[]>(`${this.individualFilmData}${id}`, updatedFilm)
   }
+
+  addFilmData(newFilm:Film) {
+    return this.http.post<Film>(this.allFilmData, newFilm) 
+  }
+
+  deleteFilmData(id: number) {
+    return this.http.delete<Film>(`${this.individualFilmData}${id}`)
+  }
 }
+

@@ -27,7 +27,6 @@
     </form>
 </div>
 
-
 <br>
 
 <div class="container table-wrapper">
@@ -43,7 +42,7 @@
             <tr *ngFor="let country of countries" (click)="onSelect(country)" (click)="scroll(target)">
                 <td class="c-id">{{country.country_id}}</td>
                 <td class="c">{{country.country}}</td>
-                <td class="c-last-update">{{ country.last_update | date:'medium'}}</td>
+                <td class="c-last-update">{{ country.last_update | date:'yyyy-MM-dd'}}</td>
             </tr>
         </tbody>
     </table>

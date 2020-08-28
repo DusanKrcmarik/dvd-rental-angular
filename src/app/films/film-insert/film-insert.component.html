@@ -1,1 +1,30 @@
-<p>film-insert works!</p>
+<form [formGroup]="filmInsertForm" (ngSubmit)="submitFilm()">
+    <div class="example-container">
+        <mat-form-field class="title-input-field dialog-input-field" name="fieldName" ngDefaultControl appearance="fill" [ngModel]="dataDialog" [ngModelOptions]="{standalone: true}"
+        >
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+        <mat-form-field class="year-input-field dialog-input-field" appearance="fill">
+            <mat-label>Release Year</mat-label>
+            <input matInput formControlName="release_year">
+        </mat-form-field>
+        <mat-form-field class="language-input-field dialog-input-field" appearance="fill">
+            <mat-label>Choose Language</mat-label>
+            <mat-select formControlName="language" id="language" [(ngModel)]="selectedLanguage">
+            <mat-option *ngFor="let language of allLanguageData" [value]="language">
+                  {{language.name}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field class="description-input-field dialog-input-field" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" style="overflow:hidden" rows="4" cols="50"></textarea>
+        </mat-form-field>
+
+        <div class="dialogue-btns">
+            <button mat-raised-button color="primary" type="submit" class="submit-dialogue">Save</button>
+            <button mat-raised-button color="accent" class="close-dialogue" (click)="close()">Close</button>
+        </div>
+    </div>
+</form>

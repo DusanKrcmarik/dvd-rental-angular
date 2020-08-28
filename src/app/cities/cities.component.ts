@@ -6,6 +6,7 @@ import { Country } from '../models/country.model';
 
 import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import * as moment from 'moment';
 
 
 
@@ -55,9 +56,12 @@ export class CitiesComponent implements OnInit {
 
     onSelect(city: City) {
       this.selectedCity = city;
-      console.log(city.country_id);
       this.selectedCountry = city.country_id;
       this.dropdownSelectedCountry = this.selectedCountry;
+
+      if(this.selectedCity.last_update) {
+        this.selectedCity.last_update = moment(this.selectedCountry.last_update).format('YYYY-MM-DD')
+      }
       // console.log(this.dropdownSelectedCountry);
       // console.log(city)
       this.updateValue()
@@ -94,15 +98,6 @@ export class CitiesComponent implements OnInit {
       this.cityForm.reset()
     }
     saveCityOnSubmit() {
-      // console.log(this.cityForm.controls['city'].value);
-      // console.log(this.cityForm.controls['country_id'].value.country_id);
-
-      // this.countries.forEach(c => {
-      //   if(c.country === this.cityForm.controls['country_id'].value) {
-      //     console.log(c.country_id);
-      //   }
-      // })
-
       if (this.selectedCity) {
         const updatedCity = {
           "city": this.cityForm.controls['city'].value,

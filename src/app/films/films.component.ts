@@ -10,12 +10,13 @@ import { MatSort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { FilmsDetailComponent } from './films-detail/films-detail.component'
+import { FilmInsertComponent } from './film-insert/film-insert.component';
 
 
 @Component({
   selector: 'app-films',
   templateUrl: './films.component.html',
-  styleUrls: ['./films.component.scss']
+  styleUrls: ['./films.component.scss'],
 })
 export class FilmsComponent implements OnInit {
 
@@ -43,27 +44,10 @@ export class FilmsComponent implements OnInit {
    constructor(private filmsService: FilmsService, public dialog: MatDialog
     ) { }
 
-
    // DIALOG
 
-  //  openAddDialog(data: any): void {
-  //    console.log(data);
-  //    console.log(this.sendValue)
-  //   const addDialogRef = this.dialog.open(FilmsDetailComponent, {
-  //     width: '500px',
-  //     height: '300px',
-  //     backdropClass: 'custom-dialog-backdrop-class',
-  //     panelClass: 'custom-dialog-panel-class',
-  //     data: this.selectedEntry
-  //   });
-
-  //   addDialogRef.afterClosed().subscribe(result => {
-  //     console.log('The addDialog was closed', result);
-  //   });
-  // }
-
   openEditDialog(): void {
-    console.log(this.selectedEntry)
+    console.log('selected entry:', this.selectedEntry)
     const editDialogRef = this.dialog.open(FilmsDetailComponent, {
       width: '550px',
       height: '350px',
@@ -78,6 +62,22 @@ export class FilmsComponent implements OnInit {
       console.log('Opali se kad ugasis modal', result);
     });
   }
+
+  openAddDialog(): void {
+    console.log(this.sendValue)
+   const addDialogRef = this.dialog.open(FilmInsertComponent, {
+     width: '550px',
+     height: '350px',
+     backdropClass: 'custom-dialog-backdrop-class',
+     panelClass: 'custom-dialog-panel-class',
+     data: ''
+   });
+
+   addDialogRef.afterClosed().subscribe(result => {
+    this.getAllFilms()
+     console.log('The addDialog was closed', result);
+   });
+ }
 
    // END DIALOG
   ngOnInit(): void{
@@ -135,5 +135,15 @@ export class FilmsComponent implements OnInit {
   if(this.selectedEntry) {
     this.isDisabled = false;
   }
-  }  
+  } 
+  
+  deleteFilm(selectedRow: any) { 
+    console.log(selectedRow)
+    this.filmsService.deleteFilmData(selectedRow.film_id).subscribe(
+      res => {
+        console.log('Deleted Movie', res)
+        this.getAllFilms()
+      }
+    )
+  }
 }
