@@ -83,7 +83,6 @@ export class FilmsComponent implements OnInit {
   ngOnInit(): void{
     this.getAllFilms()
     this.getAllLanguages()
-    // console.log(this.selectedLanguage)
   }
 
   ngAfterViewInit() {
@@ -96,13 +95,10 @@ export class FilmsComponent implements OnInit {
 
   onSelectedLanguage(value){
     if(!value.value) {
-      // console.log(this.allLanguageData)
       return this.getAllFilms();
     }
     this.dataSource.data = [... this.tempListAllFilms];
     let selectedLanguageId = value.value.language_id;
-    // console.log(selectedLanguageId)
-    // console.log('sss' , this.selectedLanguage)
     this.filteredData = [];
     this.filteredData = this.dataSource.data.filter(film => film.language_id === selectedLanguageId)
     this.dataSource.data = [... this.filteredData];
@@ -143,6 +139,9 @@ export class FilmsComponent implements OnInit {
       res => {
         console.log('Deleted Movie', res)
         this.getAllFilms()
+      },
+      error => {
+        console.log('error Movie', error)
       }
     )
   }

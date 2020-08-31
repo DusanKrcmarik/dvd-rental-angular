@@ -38,5 +38,10 @@
 }
 
 .header-title {
-    margin-bottom: 15px
+    margin-bottom: 15px;
+    cursor: pointer
+}
+
+.header-title:focus {
+    outline: none;
 }

@@ -53,7 +53,6 @@ export class FilmsDetailComponent implements OnInit {
       const toSelect = this.allLanguageData.find(c => c.language_id == this.dataDialog.language_id);
       this.filmDetailsForm.get('language').setValue(toSelect);
     }, 200);
-
   }
 
 

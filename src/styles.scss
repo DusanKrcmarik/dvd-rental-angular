@@ -22,5 +22,9 @@ body::-webkit-scrollbar-thumb {
 }
 .mat-flat-button {
   margin-left: 5px !important;
+}
 
+.btn.is-active {
+ color: white !important; 
+ background:linear-gradient(to bottom, #72b352 5%, #5a8f91 100%);
 }

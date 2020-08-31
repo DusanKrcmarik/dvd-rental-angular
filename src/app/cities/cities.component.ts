@@ -56,11 +56,12 @@ export class CitiesComponent implements OnInit {
 
     onSelect(city: City) {
       this.selectedCity = city;
+      console.log('ss' , this.selectedCity);
       this.selectedCountry = city.country_id;
       this.dropdownSelectedCountry = this.selectedCountry;
 
       if(this.selectedCity.last_update) {
-        this.selectedCity.last_update = moment(this.selectedCountry.last_update).format('YYYY-MM-DD')
+        this.selectedCity.last_update = moment(this.selectedCity.last_update).format('YYYY-MM-DD')
       }
       // console.log(this.dropdownSelectedCountry);
       // console.log(city)
@@ -102,6 +103,7 @@ export class CitiesComponent implements OnInit {
         const updatedCity = {
           "city": this.cityForm.controls['city'].value,
           "country_id": this.cityForm.controls['country_id'].value.country_id,
+          "last_update": this.cityForm.controls['last_update'].value,
           // "country_id": this.cityForm.controls['']
         }
         console.log(updatedCity);

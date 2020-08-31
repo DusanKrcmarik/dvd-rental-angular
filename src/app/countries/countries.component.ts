@@ -95,7 +95,7 @@ export class CountriesComponent implements OnInit {
         "country": this.countryForm.controls['country'].value,
         "last_update": this.countryForm.controls['last_update'].value
       }
-      console.log('datica datica dva' , updatedCountry);
+      console.log('data dva' , updatedCountry);
 
       this.countryService.updateCountry(this.selectedCountry.country_id, updatedCountry).subscribe(
         res => {
