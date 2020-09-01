@@ -17,8 +17,8 @@ import * as moment from 'moment';
 })
 export class CitiesComponent implements OnInit {
 
-  dropdownSelectedCountry:any;
-  selectedCountry:Country;
+  dropdownSelectedCountry: any;
+  selectedCountry: Country;
   newCity: FormBuilder
   updatedCity: FormBuilder
   selectedCity: City = null;
@@ -104,7 +104,6 @@ export class CitiesComponent implements OnInit {
           "city": this.cityForm.controls['city'].value,
           "country_id": this.cityForm.controls['country_id'].value.country_id,
           "last_update": this.cityForm.controls['last_update'].value,
-          // "country_id": this.cityForm.controls['']
         }
         console.log(updatedCity);
 
