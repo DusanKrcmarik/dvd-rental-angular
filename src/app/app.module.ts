@@ -32,6 +32,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FilmInsertComponent } from './films/film-insert/film-insert.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { FilmInsertComponent } from './films/film-insert/film-insert.component';
     FilmsComponent,
     FilmsDetailComponent,
     FilmInsertComponent,
+    CategoriesComponent,
   ],
   imports: [
     BrowserModule,
