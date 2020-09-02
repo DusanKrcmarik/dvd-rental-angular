@@ -14,13 +14,26 @@ import * as moment from 'moment';
 export class CategoriesComponent implements OnInit {
 
 
+
+  // pagination data
+
+  config: any;
+
+  // pagination data
+
   categories: Category[];
   selectedCategory: Category = null;
   newCategory: FormGroup;
   updatedCategory: FormGroup;
 
+  constructor(private categoryService: CategoriesService, private fb: FormBuilder) {
 
-  constructor(private categoryService: CategoriesService, private fb: FormBuilder) { }
+    this.config = {
+      itemsPerPage: 6,
+      currentPage: 1,
+      totalItems: this.categories
+    };
+  }
 
   categoryForm = this.fb.group({
     category_id: [''],
@@ -36,6 +49,7 @@ export class CategoriesComponent implements OnInit {
 getAllCategories() {
   this.categoryService.getCategoryData().subscribe(data => {
     this.categories = data;
+    console.log(data)
   })
 }
 
@@ -85,8 +99,11 @@ onSelect(category: Category) {
   if (this.selectedCategory.last_update) {
     this.selectedCategory.last_update = moment(this.selectedCategory.last_update).format('YYYY-MM-DD')
   }
-  console.log('OnSelect' ,category, 'Last_update',this.selectedCategory.last_update)
+  // console.log('OnSelect' ,category, 'Last_update',this.selectedCategory.last_update)
   this.updateValue()
+  console.log('kategorije',this.categories )
+
+  console.log(this.config)
 }
 
 updateValue() {
@@ -109,7 +126,11 @@ resetForm(value: any = undefined): void {
   this.getAllCategories()
 }
 
-// scroll to top
+// pagination
+
+pageChanged(event){
+  this.config.currentPage = event;
+}
 
   // scroll to top on country selected
   scroll(el: HTMLElement) {
