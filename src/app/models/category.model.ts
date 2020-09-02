@@ -1,5 +1,5 @@
 export class Category {
-    category_id: number;
+    category_id?: number;
     name: string;
-    last_update: any;
+    last_update?: any;
 }

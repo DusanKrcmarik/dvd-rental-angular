@@ -1,1 +1,50 @@
-<h1>Category Working</h1>
+<div class="category-wrapper" #target>
+    <div class="form-wrapper">
+    <form class="form-style" [formGroup]="categoryForm" (ngSubmit)="saveCategoryOnSubmit()">
+        <div *ngIf="selectedCategory">
+            <label for="category_id">category_id: </label>
+            <div class="category_id">
+                <input formControlName="category_id" id="category_id" type="number" [readonly]="selectedCategory">
+            </div>
+        </div>
+
+        <label for="name">category: </label>
+        <div class="name">
+            <input formControlName="name" id="name" type="text">
+        </div>
+
+        <div *ngIf="selectedCategory">
+            <label for="last_update">last_update:</label>
+            <div class="last_update">
+                <input formControlName="last_update" id="last_update" type="date">
+            </div>
+        </div>
+        <br>
+        <div class="button-wrapper">
+        <button mat-flat-button color="primary" type="submit">{{ selectedCategory === null ? 'Save' : 'Update' }}</button>
+        <button mat-flat-button color="accent" type="reset" (click)="resetForm()">Reset</button>
+        <button mat-flat-button color="warn" type="button" (click)="deleteCategoryOnClick()">Delete</button>
+    </div>
+        </form>
+    </div>
+        <br>
+
+        <div class="container table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>category id</th>
+                        <th>category</th>
+                        <th>last_update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categories" (click)="onSelect(category)" (click)="scroll(target)">
+                        <td class="c-id">{{category.category_id}}</td>
+                        <td class="c">{{category.name}}</td>
+                        <td class="c-last-update">{{category.last_update | date:'yyyy-MMM-dd'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

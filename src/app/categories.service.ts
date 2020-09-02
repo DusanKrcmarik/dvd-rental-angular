@@ -9,7 +9,7 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) {  }
 
-  categoryDataUrl = 'http://192.168.67.245:3000/category';
+  categoryDataUrl = 'http://192.168.67.245:3000/category?order=category_id.asc';
   individualCategoryDataUrl = 'http://192.168.67.245:3000/category?category_id=eq.'
 
 
@@ -17,12 +17,12 @@ export class CategoriesService {
     return this.http.get<any[]>(this.categoryDataUrl)
   }
 
-  postCategory(newCategory) {
+  postCategory(newCategory: Category) {
     return this.http.post<Category>(this.categoryDataUrl, newCategory)
   }
 
   updateCategory(id: number, updatedCategory: Category) {
-    return this.http.patch<Category>(`${this.categoryDataUrl}${id}`, updatedCategory)
+    return this.http.patch<Category>(`${this.individualCategoryDataUrl}${id}`, updatedCategory)
   }
 
   deleteCategory(id: number) {
