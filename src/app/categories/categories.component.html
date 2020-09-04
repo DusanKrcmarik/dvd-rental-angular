@@ -1,76 +1,61 @@
 <div class="category-wrapper" #target>
-    <div class="form-wrapper">
-    <form class="form-style" [formGroup]="categoryForm" (ngSubmit)="saveCategoryOnSubmit()">
-        <div *ngIf="selectedCategory">
-            <label for="category_id">category_id: </label>
-            <div class="category_id">
-                <input formControlName="category_id" id="category_id" type="number" [readonly]="selectedCategory">
-            </div>
-        </div>
-
-        <label for="name">category: </label>
-        <div class="name">
-            <input formControlName="name" id="name" type="text">
-        </div>
-
-        <div *ngIf="selectedCategory">
-            <label for="last_update">last_update:</label>
-            <div class="last_update">
-                <input formControlName="last_update" id="last_update" type="date">
-            </div>
-        </div>
-        <br>
-        <div class="button-wrapper">
-        <button mat-flat-button color="primary" type="submit">{{ selectedCategory === null ? 'Save' : 'Update' }}</button>
-        <button mat-flat-button color="accent" type="reset" (click)="resetForm()">Reset</button>
-        <button mat-flat-button color="warn" type="button" (click)="deleteCategoryOnClick()">Delete</button>
+    <div class="container table-wrapper">
+        <div class="search-box">
+        <input class="search-input" type="text" [(ngModel)]="category" placeholder="Search any fields"/>
+        <i id="icon" class="search"></i>
     </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>category id</th>
+                    <th>category</th>
+                    <th>last_update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of categories | paginate: config | categoryFilter:category" (click)="onSelect(category)"
+                    (click)="scroll(target)">
+                    <td class="c-id">{{category.category_id}}</td>
+                    <td class="c">{{category.name}}</td>
+                    <td class="c-last-update">{{category.last_update | date:'yyyy-MMM-dd'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls 
+        class="my-pagination"
+        previousLabel="" 
+        nextLabel="" 
+        (pageChange)="pageChanged($event)">
+        </pagination-controls>
+    </div>
+
+    <div class="form-wrapper">
+        <form class="form-style" [formGroup]="categoryForm" (ngSubmit)="saveCategoryOnSubmit()">
+            <div *ngIf="selectedCategory">
+                <label for="category_id">category_id: </label>
+                <div class="category_id">
+                    <input formControlName="category_id" id="category_id" type="number" [readonly]="selectedCategory">
+                </div>
+            </div>
+
+            <label for="name">category: </label>
+            <div class="name">
+                <input formControlName="name" id="name" type="text">
+            </div>
+
+            <div *ngIf="selectedCategory">
+                <label for="last_update">last_update:</label>
+                <div class="last_update">
+                    <input formControlName="last_update" id="last_update" type="date">
+                </div>
+            </div>
+            <br>
+            <div class="button-wrapper">
+                <button mat-flat-button color="primary"
+                    type="submit">{{ selectedCategory === null ? 'Save' : 'Update' }}</button>
+                <button mat-flat-button color="accent" type="reset" (click)="resetForm()">Reset</button>
+                <button mat-flat-button color="warn" type="button" (click)="deleteCategoryOnClick()">Delete</button>
+            </div>
         </form>
     </div>
-        <br>
-
-        <div class="container table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>category id</th>
-                        <th>category</th>
-                        <th>last_update</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let category of categories | paginate: config" (click)="onSelect(category)" (click)="scroll(target)">
-                        <td class="c-id">{{category.category_id}}</td>
-                        <td class="c">{{category.name}}</td>
-                        <td class="c-last-update">{{category.last_update | date:'yyyy-MMM-dd'}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-
-        </div>
-    </div>
-
-
-    <!-- Basic Pagination -->
-
-    <!-- <div class="pagination-data" style="text-align:center">
-  
-        <table class="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Item</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of collection.data | paginate: config">
-              <th scope="row">{{item.id}}</th>
-              <td>{{item.value}}</td>
-            </tr>
-          </tbody>
-        </table>
-      
-        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-      
-      </div> -->
+</div>

@@ -1,3 +1,5 @@
+// modules
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 
-import { AppRoutingModule } from './app-routing.module';
+// components
 import { AppComponent } from './app.component';
 import { CitiesComponent } from './cities/cities.component';
 import { AddressesComponent } from './addresses/addresses.component';
@@ -17,11 +19,12 @@ import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FilmsComponent } from './films/films.component';
 import { FilmsDetailComponent } from './films/films-detail/films-detail.component';
+import { FilmInsertComponent } from './films/film-insert/film-insert.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 
 
 // angular material
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
@@ -32,8 +35,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FilmInsertComponent } from './films/film-insert/film-insert.component';
-import { CategoriesComponent } from './categories/categories.component';
+
+// custom pipes
+
+import { SearchPipe } from './pipes/search.pipe'
+
+
 
 
 @NgModule({
@@ -49,6 +56,7 @@ import { CategoriesComponent } from './categories/categories.component';
     FilmsDetailComponent,
     FilmInsertComponent,
     CategoriesComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

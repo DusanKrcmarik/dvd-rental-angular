@@ -15,10 +15,9 @@ export class CategoriesComponent implements OnInit {
 
 
 
-  // pagination data
-
+  // pagination & search data
   config: any;
-
+  category: any = '';
   // pagination data
 
   categories: Category[];
@@ -28,13 +27,17 @@ export class CategoriesComponent implements OnInit {
 
   constructor(private categoryService: CategoriesService, private fb: FormBuilder) {
 
+    //pagination config
     this.config = {
       itemsPerPage: 6,
       currentPage: 1,
-      totalItems: this.categories
+      // totalItems: this.categories
     };
+
+    // for (let i = 0; i < this.categories)
   }
 
+  //form config
   categoryForm = this.fb.group({
     category_id: [''],
     name: [''],
@@ -49,7 +52,7 @@ export class CategoriesComponent implements OnInit {
 getAllCategories() {
   this.categoryService.getCategoryData().subscribe(data => {
     this.categories = data;
-    console.log(data)
+    // console.log(this.categories)
   })
 }
 
@@ -103,7 +106,7 @@ onSelect(category: Category) {
   this.updateValue()
   console.log('kategorije',this.categories )
 
-  console.log(this.config)
+  // console.log(this.config)
 }
 
 updateValue() {
@@ -126,8 +129,7 @@ resetForm(value: any = undefined): void {
   this.getAllCategories()
 }
 
-// pagination
-
+// pagination config update
 pageChanged(event){
   this.config.currentPage = event;
 }
