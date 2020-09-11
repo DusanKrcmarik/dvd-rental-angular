@@ -18,7 +18,7 @@ export class CategoriesComponent implements OnInit {
   // pagination & search data
   config: any;
   category: any = '';
-  // pagination data
+  // pagination  & search data
 
   categories: Category[];
   selectedCategory: Category = null;
@@ -29,12 +29,11 @@ export class CategoriesComponent implements OnInit {
 
     //pagination config
     this.config = {
-      itemsPerPage: 6,
+      itemsPerPage: 7,
       currentPage: 1,
       // totalItems: this.categories
     };
 
-    // for (let i = 0; i < this.categories)
   }
 
   //form config
@@ -52,7 +51,6 @@ export class CategoriesComponent implements OnInit {
 getAllCategories() {
   this.categoryService.getCategoryData().subscribe(data => {
     this.categories = data;
-    // console.log(this.categories)
   })
 }
 
@@ -89,8 +87,6 @@ deleteCategoryOnClick() {
   error => {
     console.log(error)
   },
-  // this.categoryForm.reset()
-  // this.categoryForm.reset()
   this.resetForm()
   this.getAllCategories()
 }
@@ -102,11 +98,8 @@ onSelect(category: Category) {
   if (this.selectedCategory.last_update) {
     this.selectedCategory.last_update = moment(this.selectedCategory.last_update).format('YYYY-MM-DD')
   }
-  // console.log('OnSelect' ,category, 'Last_update',this.selectedCategory.last_update)
   this.updateValue()
   console.log('kategorije',this.categories )
-
-  // console.log(this.config)
 }
 
 updateValue() {
@@ -116,11 +109,6 @@ updateValue() {
     last_update: this.selectedCategory.last_update,
 })
 }
-
-// resetForm() {
-//   this.selectedCategory = null;
-//   this.getAllCategories()
-// }
 
 resetForm(value: any = undefined): void {
   this.categoryForm.reset(value);

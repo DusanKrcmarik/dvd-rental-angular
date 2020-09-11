@@ -1,0 +1,1 @@
+export const APP_URL = 'http://192.168.67.245:3000';

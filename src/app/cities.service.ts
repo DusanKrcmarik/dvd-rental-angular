@@ -9,7 +9,7 @@ import { City } from '../app/models/city.model'
 })
 export class CitiesService {
 
-  fullCityData = 'http://192.168.67.245:3000/city?select=*,country_id(country_id,country,last_update)'
+  fullCityData = 'http://192.168.67.245:3000/city?select=*,country_id(country_id,country,last_update)&order=city_id.desc'
   individualCityDataUrl = 'http://192.168.67.245:3000/city?city_id=eq.'
   
   constructor(private http: HttpClient) { }

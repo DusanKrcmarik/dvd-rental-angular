@@ -24,8 +24,6 @@ export class CountriesComponent implements OnInit {
   selectedCountry: Country = null;
 
   constructor(private countryService: CountryService) {
-    // let date = new Date();
-    // console.log('test date:', moment(date).format('YYYY-MM-DD'));
    }
 
   countryForm = new FormGroup({

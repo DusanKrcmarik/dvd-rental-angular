@@ -1,0 +1,70 @@
+<div class="rental-wrapper" #target>
+
+    <div class="form-wrapper">
+        <form class="form-style" [formGroup]="rentalForm" (ngSubmit)="saveRentalOnSubmit()">
+    <!-- <div *ngIf="selectedRental">
+                <label for="rental_id">rental_id: </label>
+        <div class="rental_id">
+                <input formControlName="rental_id" id="rental_id" type="number" [readonly]="selectedRental">
+        </div>
+    </div> -->
+        <div>
+            <label for="customer">customer: </label>
+            <br>
+        <select formControlName="customer_id" name="customer" [(ngModel)]="selectedCustomer" >
+            <option [value]="selectedCustomer">
+                {{selectedCustomer}}
+            </option>
+            <option id="customer" *ngFor="let customer of customers" [ngValue]="customer" >
+                {{ customer.first_name }}  {{ customer.last_name }}
+            </option>
+         </select>
+        </div>
+
+        <label for="rental_date">rental_date: </label>
+        <div>
+            <input formControlName="rental_date" id="rental_date" type="date" >
+        </div>
+
+        <label for="return_date">return_date: </label>
+        <div class="return_date">
+            <input formControlName="return_date" id="return_date" type="date">
+        </div>
+    <br>
+<div class="buttons-wrapper">
+    <button class="btn" type="submit">{{ selectedRental === null ? 'Save' : 'Update'}}</button>
+    <button class="btn" type="reset" (click)="resetForm()">Reset</button>
+    <button class="btn" (click)="deleteRentalOnClick()">Delete</button>
+</div>
+        </form>
+
+        <!-- <select multiple formControlName="rentalName">
+            <option value="">Choose your rental</option>
+            <option *ngFor="let customer of customers" [ngValue]="customer" (change)="changerental($event)">{{rental}}
+            </option>
+         </select> -->
+    </div>
+
+    <br>
+
+    <div class="container table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>rental id</th>
+                    <th>rental date</th>
+                    <th>customer name</th>
+                    <th>return date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let rental of rentals" (click)="onSelect(rental)" (click)="scroll(target)">
+                    <td class="rental-id">{{rental.rental_id}}</td>
+                    <td class="rental">{{rental.rental_date | date:'yyyy-MM-dd'}}</td>
+                    <td class="customer-of-rental">{{rental.customer_id.customer}}</td>
+                    <td class="rental-last-update">{{rental.return_date | date:'yyyy-MM-dd'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

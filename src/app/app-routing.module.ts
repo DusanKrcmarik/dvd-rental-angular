@@ -6,6 +6,7 @@ import { CitiesComponent } from './cities/cities.component';
 import { FilmsComponent } from './films/films.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { RentalComponent } from './rental/rental.component'
 
 const routes: Routes = [
   { path: 'home', component: HomeViewComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'cities', component: CitiesComponent }, 
   { path: 'films', component: FilmsComponent},
   { path: 'categories', component: CategoriesComponent},
+  { path: 'rental', component: RentalComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent},
 

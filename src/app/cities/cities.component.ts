@@ -4,7 +4,6 @@ import { City } from '../models/city.model';
 import { CountryService } from '../country.service'
 import { Country } from '../models/country.model';
 
-import { FormGroup, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import * as moment from 'moment';
 
@@ -26,14 +25,6 @@ export class CitiesComponent implements OnInit {
   cities: City[];
 
   constructor(private citiesService: CitiesService, private countryService: CountryService, private fb: FormBuilder) { }
-
-  // cityForm = new FormGroup({
-  //   city_id: new FormControl(),
-  //   city: new FormControl(),
-  //   country_id: new FormControl(),
-  //   last_update: new FormControl(),
-  //   country: new FormControl()
-  //   })
 
   cityForm = this.fb.group({
     city_id: [''],
@@ -66,16 +57,16 @@ export class CitiesComponent implements OnInit {
       // console.log(this.dropdownSelectedCountry);
       // console.log(city)
       this.updateValue()
+      // console.log(this.selectedCountry.country)
     }
 
     updateValue() {
-
     this.selectedCountry = this.selectedCity.country_id;
       this.cityForm.patchValue({
         city_id: this.selectedCity.city_id,
         city: this.selectedCity.city,
+        country_id: this.selectedCountry.country,
         last_update: this.selectedCity.last_update,
-        country_id: this.selectedCountry.country
       })
       // console.log(this.selectedCity.country_id.country);
 
@@ -88,15 +79,14 @@ export class CitiesComponent implements OnInit {
     }
 
     deleteCityOnClick() {
-      console.log(this.selectedCity.city_id)
       this.citiesService.deleteCity(this.selectedCity.city_id).subscribe(
         res => {
+          this.getAllCities();
           console.log(res)
-          this.resetForm();
-          // this.getAllCities()
         }
       );
       this.cityForm.reset()
+      // this.getAllCities()
     }
     saveCityOnSubmit() {
       if (this.selectedCity) {
@@ -145,7 +135,7 @@ getAllCountries() {
 //      console.log(country)
 //  }
 
-      // scroll to top on country selected
+      // scroll to top on city selected
       scroll(el: HTMLElement) {
         el.scrollIntoView();
       }

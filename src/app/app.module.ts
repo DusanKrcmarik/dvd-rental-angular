@@ -21,7 +21,7 @@ import { FilmsComponent } from './films/films.component';
 import { FilmsDetailComponent } from './films/films-detail/films-detail.component';
 import { FilmInsertComponent } from './films/film-insert/film-insert.component';
 import { CategoriesComponent } from './categories/categories.component';
-
+import { RentalComponent } from './rental/rental.component'
 
 
 // angular material
@@ -36,9 +36,9 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-// custom pipes
 
-import { SearchPipe } from './pipes/search.pipe'
+// custom pipes
+import { SearchPipe } from './pipes/search.pipe';
 
 
 
@@ -56,7 +56,8 @@ import { SearchPipe } from './pipes/search.pipe'
     FilmsDetailComponent,
     FilmInsertComponent,
     CategoriesComponent,
-    SearchPipe
+    SearchPipe,
+    RentalComponent
   ],
   imports: [
     BrowserModule,

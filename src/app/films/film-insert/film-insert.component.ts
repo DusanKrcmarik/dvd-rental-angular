@@ -17,7 +17,6 @@ export class FilmInsertComponent implements OnInit {
   selectedFilm: Film;
   dataDialog: Film;
   filmInsertForm: FormGroup;
-  
   constructor(    
   @Inject(MAT_DIALOG_DATA) public data: any, 
   private dialogRef: MatDialogRef<FilmInsertComponent>,
@@ -47,8 +46,8 @@ export class FilmInsertComponent implements OnInit {
 }
 
 submitFilm(){
-  console.log(this.filmInsertForm.value)
-
+  console.log('film ' , this.filmInsertForm.value) 
+  return;
   const newFilm = {
     "title": this.filmInsertForm.controls['title'].value,
     "description": this.filmInsertForm.controls['description'].value,

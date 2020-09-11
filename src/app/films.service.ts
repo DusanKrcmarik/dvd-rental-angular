@@ -11,9 +11,7 @@ export class FilmsService {
 
   constructor(private http: HttpClient) { }
 
-  // allFilmData = 'http://192.168.67.245:3000/film';
   allFilmData = 'http://192.168.67.245:3000/film?select=*,language(language_id,name)'
-  filmByLanguageData = 'http://192.168.67.245:3000/film?language_id=eq.';
   languageListData = 'http://192.168.67.245:3000/language';
   individualFilmData = 'http://192.168.67.245:3000/film?film_id=eq.'
 
