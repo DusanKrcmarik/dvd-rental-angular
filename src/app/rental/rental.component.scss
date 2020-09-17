@@ -1,4 +1,167 @@
 .rental-wrapper{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly
+}
+
+.form-wrapper {
+    order: 2;
+}
+
+
+
+
+
+
+.category-wrapper {
+    display: flex;
+
+}
+
+.form-wrapper {
+    margin-left: 5rem;
+
+}
+
+
+
+th {
+    color: #181818;
+    background-color: #aa4a30; 
+    padding: 15px;
+    border-radius: 5px
+}
+
+tr {
+background-color: #edcfa9;
+border-radius: 5px
+}
+
+
+.rental-id {
+    color: #225418;
+    padding-left: 30px;
+    border-radius: 5px;
+    border: 1px solid #e89f71;
+    border-radius: 5px;
+    padding: 15px;
+    cursor: pointer
+}
+
+.rental-id:hover, .customer-of-rental:hover{
+    background-color: #f1f1;
+    transition: 0.3s
+    
+}
+
+.customer-of-rental {
+    color:#151b1b;
+    background: #e89f71;
+    padding: 10px;
+    border: 1px solid #aa4a30;
+    border-radius: 5px;
+    padding: 15px;
+    cursor: pointer
+
+}
+
+.rental-date, .rental-return {
+    color: green;
+    border: 1px solid #5b8a3c;
+    background-color: #E79A6D;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer
+
+}
+
+.rental-return {
+    color: crimson;
+}
+
+// pagination & search styling
+
+ .my-pagination ::ng-deep .current {
+    background-color: #e89f71;
+    color: #aa4a30;
+    border: 1px #aa4a30 solid ;
+    border-radius: 15px;
+  }
+  
+  .my-pagination ::ng-deep li :focus {
+    outline: none
+  }
+
+  .my-pagination ::ng-deep li :hover {
+    background-color: #e89f71;
+    color: #aa4a30;
+    border-radius: 15px;
+    outline: none;
+    transition: 0.3s
+  }
+
+.search-box {
+		display: flex;
+		width: 150px;
+        border: none;
+        margin: 1rem 3rem;
+		position: relative;
+		height: 50px;
+		background: #f4f4f4;
+		border-radius: 15px;
+		box-shadow: 0 3px 5px #BEB4FF;
+		color: white;
+		font-weight: 600;
+		cursor: text;
+	& input{
+		position: absolute;
+    z-index: 0;
+    width: 150px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+		color: white;
+		font-weight: 600;
+		background: #e89f71;
+		padding-left: 60px;
+			&:focus{
+				outline: none;
+				& + .search{
+			transform: perspective(400px) 		rotateY(89deg);
+			padding: 3px 0;
+            opacity: 0;
+		}
+			}
+	}
+	& i.search {
+		height: 10px;
+		width: 10px;
+        border: 5px solid #fff;
+		border-radius: 50%;
+		position: relative;
+		z-index: 1;
+		transform:  rotatez(-45deg);
+		top: 13px;
+		left: 10%;
+		transition: .2s all;
+	  transform-style: preserve-3d;		
+perspective: 400px;
+		&::after {
+			content: '';
+			display: block;
+			width: 5px;
+			height: 15px;
+			background: #fff;
+			position: absolute;
+			left: calc(50% - 2px);
+			border-radius: 10px;
+            top: 101%;
+		}
+	}
+
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

@@ -39,7 +39,7 @@ import { MatInputModule } from '@angular/material/input';
 
 // custom pipes
 import { SearchPipe } from './pipes/search.pipe';
-
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 
 
@@ -76,7 +76,8 @@ import { SearchPipe } from './pipes/search.pipe';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    AutocompleteLibModule
   ],
   providers: [],
   bootstrap: [AppComponent],

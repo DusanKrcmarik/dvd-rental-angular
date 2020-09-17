@@ -1,7 +1,7 @@
 import { Customer } from './customer.model'
 
 export class Rental {
-        rental_id: number;
+        rental_id?: number;
         rental_date: any;
         inventory_id?: any;
         customer_id: Customer;

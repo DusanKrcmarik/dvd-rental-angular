@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let category of categories | paginate: config | categoryFilter:category" (click)="onSelect(category)"
+                <tr *ngFor="let category of categories | paginate: config | filter:category" (click)="onSelect(category)"
                     (click)="scroll(target)">
                     <td class="c-id">{{category.category_id}}</td>
                     <td class="c">{{category.name}}</td>

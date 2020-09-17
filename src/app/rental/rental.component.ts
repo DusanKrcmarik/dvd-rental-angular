@@ -15,6 +15,10 @@ import * as moment from 'moment';
 })
 export class RentalComponent implements OnInit {
 
+  // pagination references
+  p: number = 1;
+  search: any = '';
+
   //form references
   customerForm: FormGroup;
   rentalForm: FormGroup;
@@ -59,10 +63,14 @@ export class RentalComponent implements OnInit {
     last_update: ['']
   })
 
-
+  //set date in form
+  const currentDate = new Date().toISOString().substring(0, 10);
+  this.rentalForm.controls['last_update'].setValue(currentDate);
   }
+ 
 
-  // form patch values diosajkdoisd
+
+  // form patch values 
   updateValue() {
     this.selectedCustomer = this.selectedRental.customer
     this.rentalForm.patchValue({
@@ -80,11 +88,13 @@ export class RentalComponent implements OnInit {
     this.selectedRental = rental;
     console.log(this.selectedRental);
     this.selectedCustomer = rental.customer
-    console.log(this.selectedCustomer)
+    // console.log(this.selectedCustomer)
 
     if (this.selectedRental.rental_date || this.selectedRental.return_date) {
       this.selectedRental.rental_date = moment(this.selectedRental.rental_date).format('YYYY-MM-DD');
-      this.selectedRental.return_date = moment(this.selectedRental.return_date).format('YYYY-MM-DD')
+      this.selectedRental.return_date = moment(this.selectedRental.return_date).format('YYYY-MM-DD');
+      this.selectedRental.last_update = moment(this.selectedRental.last_update).format('YYYY-MM-DD')
+
     }
     this.updateValue()
   }
@@ -112,7 +122,6 @@ export class RentalComponent implements OnInit {
       this.rentalForm.value.customer_id = this.rentalForm.value.customer_id.customer_id;
     } 
     if (this.selectedRental) {
-      // const updatedRental= '';
       console.log('VALUES FROM FORM WHICH I SEND TO BACKEND - VALUES FROM INPUT' , this.rentalForm.value)
       console.log('ALL MY FORMS' , this.rentalForm)
       this.rentalService.updateRental(this.selectedRental.rental_id,  this.rentalForm.value).subscribe(
@@ -133,10 +142,10 @@ export class RentalComponent implements OnInit {
   }
 
   deleteRentalOnClick() {
-    console.log(this.selectedRental.rental_id)
     this.rentalService.deleteRental(this.selectedRental.rental_id).subscribe(() => {
+      this.getRentals()
     })
-    this.resetForm()
+    this.rentalForm.reset()
   }
 
 
