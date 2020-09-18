@@ -2,19 +2,34 @@
 
     <div class="form-wrapper">
         <form class="form-style" [formGroup]="rentalForm" (ngSubmit)="saveRentalOnSubmit()">
-        <div>
-            <label for="customer">customer: </label>
-            <br>
-        <select formControlName="customer_id" name="customer" [(ngModel)]="selectedCustomer" required>
-            <option [value]="selectedCustomer">
-                {{selectedCustomer}}
-            </option>
-            <option id="customer" *ngFor="let customer of customers" [ngValue]="customer" >
-                {{ customer.first_name }}  {{ customer.last_name }}
-            </option>
-         </select>
-        </div>
+  
+        <div class="ng-autocomplete" >
+            <ng-autocomplete
+                [data]="customers" 
+                [searchKeyword]="keyword" 
+                placeHolder="Search Customers"
+                (selected)='selectEvent($event)'
+                (inputChanged)='getServerResponse($event)' 
+                (inputFocused)='onFocused($event)' 
+                [itemTemplate]="itemTemplate"  
+                [debounceTime]="500" 
+                [isLoading]="isLoadingResult" 
+                [minQueryLength]="2"
+                formControlName="customer_id"
+                [notFoundTemplate]="notFoundTemplate" 
+            >
+            </ng-autocomplete>
+        
+            <ng-template #itemTemplate let-item>
+                            <span [innerHTML]="item.first_name"></span>  &nbsp;
+                            <span [innerHTML]="item.last_name"></span>
+            </ng-template>
 
+            <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+            </ng-template>
+
+        </div>
         <label for="rental_date">rental_date: </label>
         <div>
             <input formControlName="rental_date" id="rental_date" type="date" >

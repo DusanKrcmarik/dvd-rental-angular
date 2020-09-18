@@ -15,6 +15,11 @@ import * as moment from 'moment';
 })
 export class RentalComponent implements OnInit {
 
+  //autocomplete references
+  keyword = "username";
+  isLoadingResult: boolean;
+
+
   // pagination references
   p: number = 1;
   search: any = '';
@@ -24,7 +29,7 @@ export class RentalComponent implements OnInit {
   rentalForm: FormGroup;
 
   //template references
-  customers: Customer[];
+  customers: any;
   selectedCustomer: Customer = null;
 
   rentals: Rental[];
@@ -35,8 +40,8 @@ export class RentalComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.customerForm)
-    this.getCustomers()
+    // console.log(this.customerForm)
+    this.getCustomers();
     this.getRentals()
 
   //forms
@@ -105,14 +110,16 @@ export class RentalComponent implements OnInit {
   getCustomers() {
     this.rentalService.getCustomerData().subscribe((data) => {
       this.customers = data;
-      // console.log(this.customers)
+      console.log(this.customers)
+      this.customers.map((customer) => {
+        customer.username = `${customer.first_name} ${customer.last_name}`
+      })
     })
   }
 
   getRentals() {
     this.rentalService.getFullRentalData().subscribe((data) => {
       this.rentals = data;
-      console.log('rentals come with customer_id object, probably' , this.rentals);
     })
   }
   
@@ -122,11 +129,11 @@ export class RentalComponent implements OnInit {
       this.rentalForm.value.customer_id = this.rentalForm.value.customer_id.customer_id;
     } 
     if (this.selectedRental) {
-      console.log('VALUES FROM FORM WHICH I SEND TO BACKEND - VALUES FROM INPUT' , this.rentalForm.value)
-      console.log('ALL MY FORMS' , this.rentalForm)
+      // console.log('VALUES FROM FORM WHICH I SEND TO BACKEND - VALUES FROM INPUT' , this.rentalForm.value)
+      // console.log('ALL MY FORMS' , this.rentalForm)
       this.rentalService.updateRental(this.selectedRental.rental_id,  this.rentalForm.value).subscribe(
         res => {
-          console.log(res)
+          // console.log(res)
           this.getRentals()
         }
       )
@@ -158,7 +165,38 @@ export class RentalComponent implements OnInit {
     this.getCustomers()
   }
 
+// autocomplete methods
+getServerResponse(event) {
+  this.isLoadingResult = true;
 
+  this.rentalService.getCustomerData()
+    .subscribe(data => {
+      if (data['Search'] == undefined) {
+        // this.customers = [];
+        
+      } else {
+        this.customers = data['Search'];
+      }
+      console.log('acc data', data)
+      this.isLoadingResult = false;
+    });
+}
+
+  searchCleared() {
+    console.log('searchCleared');
+  }
+
+selectEvent(item) {
+  // console.log('item', item);
+  // do something with selected item
+  // this.customers = [];
+}
+
+onFocused(e) {
+  // do something when input is focused 
+  console.log('item', e);
+}
+ 
   // scroll to top on rental selected
   scroll(el: HTMLElement) {
   el.scrollIntoView();
